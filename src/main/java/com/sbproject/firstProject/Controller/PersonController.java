@@ -1,10 +1,7 @@
 package com.sbproject.firstProject.Controller;
 
 import com.sbproject.firstProject.Model.Person;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,11 +18,12 @@ public class PersonController {
     }
 
     @GetMapping("/person/{name}")
-    public Person getPersons(@PathVariable String name)
+    @ResponseBody
+    public Person getPersons(@RequestParam String name)
     {
         List<Person> people = List.of(
-                new Person("Name", "One", "1"),
-                new Person("Hello", "Test", "2"));
+                new Person("Umma", "Umma", "1"),
+                new Person("Hello", "Test", "22"));
 
         Person person = people.stream()
                 .filter(s -> s.getFirstName().equals(name))
