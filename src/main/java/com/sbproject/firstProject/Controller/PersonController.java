@@ -5,11 +5,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static java.lang.System.out;
+
 @RestController
 public class PersonController {
     @GetMapping("/person")
-    public List<Person> getPerson()
-    {
+    public List<Person> getPerson() {
         List<Person> people = List.of(
                 new Person("Umma", "Umma", "1"),
                 new Person("Hello", "Test", "2")
@@ -19,12 +20,11 @@ public class PersonController {
 
     @GetMapping("/person/{name}")
     @ResponseBody
-    public Person getPersons(@RequestParam String name)
-    {
+    public Person getPersons(@RequestParam String name) {
         List<Person> people = List.of(
-                new Person("Umma", "Umma", "1"),
-                new Person("Hello", "Test", "22"));
-
+                new Person("helloOne", "HelloTwo", "1"),
+                new Person("Hello", "Test", "22")
+        );
         Person person = people.stream()
                 .filter(s -> s.getFirstName().equals(name))
                 .findFirst()
@@ -32,4 +32,18 @@ public class PersonController {
 
         return person;
     }
+
+    //post
+    @PostMapping("/person")
+    public void postPerson()
+    {
+        out.println("post");
+    }
+
+    //delete
+    @DeleteMapping("/person")
+    public void deletePerson() {
+        out.println("delete");
+    }
+
 }
