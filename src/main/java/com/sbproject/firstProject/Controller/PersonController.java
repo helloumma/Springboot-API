@@ -1,11 +1,11 @@
 package com.sbproject.firstProject.Controller;
 
 import com.sbproject.firstProject.Model.Person;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import static java.lang.System.out;
 
 @RestController
 public class PersonController {
@@ -16,6 +16,22 @@ public class PersonController {
                 new Person("Hello", "Test", "2")
         );
         return people;
+    }
+
+    @GetMapping("/response-entity-builder-with-http-headers")
+    public ResponseEntity<String> usingResponseEntityBuilderAndHttpHeaders() {
+        List<Person> people = List.of(
+                new Person("Umma", "Umma", "1"),
+                new Person("Hello", "Test", "2")
+        );
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Baeldung-Example-Header",
+                "Value-ResponseEntityBuilderWithHttpHeaders");
+
+        return ResponseEntity.ok()
+                .headers(responseHeaders)
+                .body(people.toString());
     }
 
     @GetMapping("/person/{name}")
@@ -37,13 +53,13 @@ public class PersonController {
     @PostMapping("/person")
     public void postPerson()
     {
-        out.println("post");
+        System.out.println("post");
     }
 
     //delete
     @DeleteMapping("/person")
     public void deletePerson() {
-        out.println("delete");
+        System.out.println("delete");
     }
 
 }
